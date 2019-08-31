@@ -5,7 +5,8 @@ module.exports = {
     description: `Software, Programming, Tech`,
     siteUrl: `https://blog.sublime.is/`,
     social: {
-      twitter: `none`,
+      twitter: "none",
+      github: `https://github.com/enerqi`,
     },
   },
   plugins: [{
@@ -55,13 +56,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Sublime Blog`,
+        short_name: `Sublime Blog`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        theme_color: `#ffffff`,
+        display: `standalone`,
+        legacy: false,  // removed legacy apple-touch-icon shortcut links (bandwidth heavy) - just use web manifest icons
+        icon: `src/images/quasar-square.jpg`
       },
     },
     `gatsby-plugin-offline`,
@@ -70,6 +72,7 @@ module.exports = {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `src/utils/typography`,
+        omitGoogleFont: true,  // want to self host using `typefaces` library
       },
     },
   ],
