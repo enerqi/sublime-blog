@@ -11,10 +11,20 @@ import {
   graphql
 } from "gatsby"
 import Image from "gatsby-image"
+import { Link } from "gatsby"
 
 import {
   rhythm
 } from "../utils/typography"
+
+import githubMarkUrl, { ReactComponent as GithubMarkIcon } from '../../content/assets/github-mark.svg'
+
+const GithubMark = () => (
+  <a href="https://github.com/enerqi">
+    <img src={githubMarkUrl} alt="github mark"/>
+  </a>
+)
+
 
 const Bio = () => {
   const data = useStaticQuery(graphql `
@@ -48,6 +58,8 @@ const Bio = () => {
           marginBottom: rhythm(2.5),
         }
       } >
+
+      <Link to={"/"}>
       <
       Image fixed = {
         data.avatar.childImageSharp.fixed
@@ -68,20 +80,15 @@ const Bio = () => {
           borderRadius: `50%`,
         }
       }
-      /> <
-      p >
-      Written by < strong > {
-        author
-      } < /strong>. {
-      ` `
-    } <
-    a href = {
-      `https://github.com/enerqi`
-    } >
-    Github <
-    /a> < /
-  p > <
-    /div>
+      />
+      </Link>
+
+      <p>
+      Notes from a software engineer with two decades working in various industries - games, poker and gambling,
+      music streaming and telecommunications. Likes fast code and functional programming. Based in the UK.
+      </p>
+      <GithubMark/>
+    </div>
 )
 }
 

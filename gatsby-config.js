@@ -23,6 +23,7 @@ module.exports = {
         name: `assets`,
       },
     },
+    'gatsby-plugin-svgr',
     {
       resolve: `gatsby-transformer-remark`,
       options: {
