@@ -1,7 +1,7 @@
 ---
 title: Hello World, Why Blog
 date: "2020-01-19T14:12:03.284Z"
-description: "Hello World"
+description: "Making a start"
 ---
 
 Hello World! Ok, that's a start.
