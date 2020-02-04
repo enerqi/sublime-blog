@@ -60,7 +60,7 @@ There's probably many more optimisations that I'm not really thinking of and tha
 care of or do a good enough job that the return on time spent optimising it ourselves is not worth while. Overall
 most of those optimisations are really low priority compared to considerations of memory layout and memory access.
 Understanding memory layout implies we should learn what our programming language is doing when it puts our types
-into as bits/bytes in virtual/physical memory. Maybe learn about heap allocations vs stack allocations and custom
+as bits/bytes in virtual/physical memory. Maybe learn about heap allocations vs stack allocations and custom
 allocators, which is mostly hidden in higher level programming languages. Even in higher level progamming languages
 it's worth getting at least an overview of how garbage collectors work.
 
