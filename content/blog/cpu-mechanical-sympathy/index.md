@@ -12,7 +12,7 @@ programs. Although optimisation of IO bound programs is certainly relevant (thro
 multiple concurrent tasks or batching), optimising a program is commonly associated with improving performance when
 the data is available in memory - and so is CPU/Memory bound.
 
-CPU/Memory bound programs in many years gone by could be associated with hand optimizing programs by writing assembly
+CPU/Memory bound programs in many years gone by could be associated with hand optimising programs by writing assembly
 code and counting CPU cycles of various CPU instructions. Thinking of optimisation there's a lot of different concepts
 that are high or low level:
 
@@ -57,8 +57,8 @@ Conditionals/branches (if/else/switch etc.) should preferrably be easily predict
 ## Most Importantly, Memory Layout and Access
 
 There's probably many more optimisations that I'm not really thinking of and thankfully maybe compilers mostly take
-care of or do a good enough job that the return on time spent optimizing it ourselves is not worth while. Overall
-most of those optimizations are really low priority compared to considerations of memory layout and memory access.
+care of or do a good enough job that the return on time spent optimising it ourselves is not worth while. Overall
+most of those optimisations are really low priority compared to considerations of memory layout and memory access.
 Understanding memory layout implies we should learn what our programming language is doing when it puts our types
 into as bits/bytes in virtual/physical memory. Maybe learn about heap allocations vs stack allocations, which is mostly
 hidden in higher level programming languages.
