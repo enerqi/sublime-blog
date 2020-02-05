@@ -1,6 +1,6 @@
 ---
 title: CPU Mechanical Sympathy
-date: "2020-02-02T10:45:03.284Z"
+date: "2020-02-04T19:45:03.284Z"
 description: "Memory access dominates performance"
 ---
 
