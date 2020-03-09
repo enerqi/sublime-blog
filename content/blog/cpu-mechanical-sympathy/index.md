@@ -20,9 +20,9 @@ that are high or low level:
 #### Algorithms and work done
 
 Understanding what you want to accomplish and understanding what the CPU is doing. Following from that is the idea of
-just avoiding unnecessary work and taking fewer steps to achieve what you want.
+just avoiding unnecessary work and taking fewer steps to achieve what you want. This is *efficiency*.
 Algorithms and datastructures may often be framed as trade off between memory and CPU - memory can be used as a cache to avoid re-computing certain things, however, even if you had near infinite memory it can be less performant to use
-memory as a cache that just re-computing things.
+memory as a cache than just re-computing things.
 
 #### Data structures and complexity analysis
 
