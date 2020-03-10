@@ -43,7 +43,7 @@ case:
 
 ```python
 
-def dev(x: int, y: int) -> Optional[int]:
+def div(x: int, y: int) -> Optional[int]:
     if y == 0:
         return None
     return x / y

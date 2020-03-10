@@ -180,15 +180,15 @@ data is immutable we learn to *pipeline* data much like `|` in a posix shell. Fu
 
 ## Conclusion
 
-This FP architecture might be described as imperative shell and functional core. The pure functions are composed in
+This FP architecture might be described as imperative shell and functional core. The pure functions are composed inside
 an impure context. Others have called the architecture an impure-pure(-impure) sandwich, or depending on how the side
-effecting imperative parts are implemented, maybe an OO-FP-OO sandwich. There is also an impure context, however it
+effecting imperative parts are implemented, maybe an OO-FP-OO sandwich. There is always an impure context, however it
 can often be reduced.
 
 All the unfamiliar FP techniques exist to maximise the functional core and correspondingly reduce the impure context
 to the bare minimum. Pure functions reduce the burden on the programmer to track state and mutation. The challenge
 is that, apart from languages like Haskell, your language probably has little ability to help identify what functions
-are pure. You could annotate them, e.g. `@pure` in python, but whenever someone updates a functions there is burden
+are pure. You could annotate them, e.g. `@pure` in python, but whenever someone updates a function there is a burden
 on the programmer to identify if a function is still pure.
 
 
