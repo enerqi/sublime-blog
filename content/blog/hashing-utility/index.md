@@ -38,7 +38,7 @@ with open(filename,"rb", buffering=0) as f:
     print(f"sha512 hex digest: {sha512_hash.hexdigest()}")
 ```
 
-Optimizing the read size can be interesting. The `file.read` will, after being intepreted by python, resolve to  making a system call, i.e. the `read` system call. Blocking on this call that switches to the privileged kernel mode
+Optimizing the read size can be interesting. The `file.read` will, after being interpreted by python, resolve to  making a system call, i.e. the `read` system call. Blocking on this call that switches to the privileged kernel mode
 (instead of user space code) and retrieves the specified amount of data from the file is not free, it has relatively
 high latency. That's why libraries for every language provide some sort of I/O buffering, buffers that exist outside
 of the kernel space that are used to read relatively large chunks.
@@ -197,6 +197,6 @@ codegen-units = 1
 
 So for a 915MB input file the python program was running just the sha2-256 hash in ~3 seconds. The rust program was
 doing the same in ~6 seconds. Yeah, twice as slow and I double checked that the time was being spent in the library
-hashing function. Just goes to show that Python maybe very slow interpreted language by most benchmarks, but a lot of
+hashing function. Just goes to show that Python maybe a very slow interpreted language by most benchmarks, but a lot of
 the time Python is used as a scripting language for native code, i.e. C/C++/Rust libraries. In this case the hashlib
 implementation in the Python standard library is clearly better optimized than the third party rust libraries.
