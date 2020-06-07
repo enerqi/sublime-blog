@@ -1,6 +1,6 @@
 ---
 title: FSharp?
-date: 2020-06-7T11:45:03.284Z
+date: 2020-06-05T11:45:03.284Z
 description: Why and Future for F#
 ---
 
