@@ -4,7 +4,7 @@ date: 2020-06-05T11:45:03.284Z
 description: Why and Future for F#
 ---
 
-Following the recent FSharp conference online I note a [discussion](https://www.reddit.com/r/fsharp/comments/gx8iff/what_can_we_do_to_boost_fs_profile_adoption_and/)
+Following the recent [FSharp](https://fsharp.org/) conference online I note a [discussion](https://www.reddit.com/r/fsharp/comments/gx8iff/what_can_we_do_to_boost_fs_profile_adoption_and/)
 on Reddit about boosting F#'s visibility, adoption and what the challenges are. So, some thoughts on the pros and cons.
 
 
@@ -16,8 +16,9 @@ attached data). Domain modelling and making illegal states unrepresentable are a
 top of that we have exhaustive compile time checked pattern matching including active patterns (extensions to pattern
 matching) that ensures we have handled the different states that we do represent in the domain model. Naturally, it
 is a functional first language with persistent immutable data structures for things like Lists, Maps and Sets and the record
-types are by default immutable. The language has decent performance and access to imperative features for heavy
-optimization. As a language it is great for standard business CRUD modelling and development, not just for obvious mathematical/calculation domains. There's a lot of information
+types are by default immutable. Being FP first it is expression, data flow and value (e.g. structural equality
+instead of reference equality) oriented. The language has decent performance and access to imperative features for
+heavy optimization. As a language it is great for standard business CRUD modelling and development, not just for obvious mathematical/calculation domains. There's a lot of information
 about F# in the [Why use F#?](https://fsharpforfunandprofit.com/why-use-fsharp/) article at fsharpforfunandprofit.
 
 
@@ -36,7 +37,7 @@ state when not developing FP first. Everyone has limited time to use to learn ne
 Many who like using heavy type constraints (or pure functional programming) will prefer using [Haskell](https://www.haskell.org/), Scala with [Scalaz](https://github.com/scalaz/scalaz) or
 [PureScript](https://www.purescript.org/). F# doesn't have type classes or higher kinded types for some sorts of
 advanced static type constraints. For myself that's a choice and I'm not sure about the tricks that e.g.
-[FSharpPlus](https://github.com/fsprojects/FSharpPlus) uses to get some of these features even though they are not
+[FSharpPlus](http://fsprojects.github.io/FSharpPlus/) uses to get some of these features even though they are not
 in the language.
 
 There's also people who choose dynamic typing. That maybe because their experience of other statically typed languages
@@ -58,7 +59,7 @@ There's a view that as more mainstream languages acrue functional features we do
 language. After all, Python isn't functonal first yet I'm trying to show how to do a reasonable job of functional first
 development with it. I've seen plenty of comments that going functional first in C# is quite ugly if done at the
 larger scale, but maybe it can work. C# is gradually acquiring those functional features. It has added better null
-handling and some form of pattern matching. Perhaps in C# 10 it will also have (discriminated/dijoint) unions which
+handling and some form of pattern matching. Perhaps in C# 10 it will also have (discriminated/disjoint) unions which
 combined with pattern matching is quite the killer combination for domain modelling. This won't make C# functional
 first by default though. From what I've seen of the new features there
 are still holes around catching problems at compile time with the null handling and pattern matching features, but
