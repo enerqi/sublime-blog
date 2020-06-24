@@ -226,7 +226,7 @@ Nominal types are a very familiar and just mean a named type. The name is used t
 meaning to the domain modeller. The benefit is much the same as new types. The `NotStarted` dataclass in the python
 example without disjoint unions has no values (or just one value - the empty set), so the usefulness of `NotStarted`
 is in it being a different named empty set compared to other named (or unnamed) empty sets. The `EventStatus` class is
-also empty of data values. It's name and inheritance relationship to `NotStarted`, `Started` and `Finished` is there
+also empty of data values. Its name and inheritance relationship to `NotStarted`, `Started` and `Finished` is there
 to, in a more hidden way, create a three value enumeration of `EventStatusType`.
 
 ## Shrinking the State Space
@@ -275,9 +275,9 @@ exception - something I'd prefer to avoid as discussed in [error handling](/erro
 method in place to "hide" it (not that python has a lot of access control mechanisms). Optionally we put a property
 accessor in place, whereas with the plain new type there was no accessing required. Dataclasses don't make it easier as
 they are syntactic sugar for generating classes. So, I'd stick with a simple new type and `make_email_address` creating
-function. As the python language primitives are all immutable we also don't need to worry about mutability with a new
+function. As the python language primitives are all immutable we often don't need to worry about mutability with a new
 type in python. We'd consider using the `frozen=True` (immutable) dataclass parameter if trying to use immutable data
-and pure functions.
+and dataclasses.
 
 ## Reference vs Value Types
 
@@ -319,8 +319,8 @@ first development with pure functions. Pure functions and immutable data have li
 identity, the place in memory, as we will be making new immutable data from the old. This [what is FP](https://www.lihaoyi.com/post/WhatsFunctionalProgrammingAllAbout.html) article chooses to emphasise dataflow in FP
 programming, which I've not really done when talking about [pure functions and FP first development](/fp-first), but I
 do agree with it. Using immutable data and pure functions means that each function creates new data and shows it to
-the next function. References to objects are not passed through the flow of the program, references that are used to
-mutate the objects. State aliasing and tracking state is something computers and not humans are good at.
+the next function. References to objects are not passed through the flow of the program with the purpose of using them
+to mutate the objects. State aliasing and tracking state is something computers and not humans are good at.
 
 Again, even if it's possible people may not bother with something like value / structrual semantics if it's much more
 effort to create than the default reference semantics. Python at least is in good shape here if we stick with
@@ -364,12 +364,12 @@ def f(e: EmailAddress) -> Optional[GDPRMarketableEmailAddress]:
 ```
 
 This function is terribly named, but if you understand the domain types it's clear what it does (assuming it's a
-pure function that has no side effects).
+pure function that has no side effects). Types have more utility the better their constraints match the domain.
 
 Going back to open and closed types, the closed types are fully specified and visible to the type checker. Most
 languages lack one of disjoint unions (a closed type) or pattern matching. Some pattern matching features maybe present
 but not exhaustive. Exhaustive pattern matching requires us to handle every "shape" or case of a disjoint union. We
-can evolve our disjoint union domain type and every function that takes one as input will be checked. No problem such as forgetting to update a switch statement in language without pattern matching. If we have done our modelling
+can evolve our disjoint union domain type and every function that takes one as input will be checked. No problem such as forgetting to update a switch statement in languages without pattern matching. If we have done our modelling
 correctly we get the added benefit of only ever handling valid states in the pattern matching branches.
 
 ```python
@@ -397,9 +397,9 @@ type EventStatus =
 
 es = ... // get event status
 match es with
-| NotStarted -> ... // handle not started
-| Started startedTime -> ... // handle started
-| Finished 0.0f | 1.0f -> ... // handle finished with duration of 0 or 1
+| NotStarted -> ...
+| Started startedTime -> ...
+| Finished 0.0f | 1.0f -> ...
 ```
 
 An example of a stronger pattern matcher in F#. The pattern matcher allows us to match a finished case where the finished duration is exactly zero or one seconds. This example won't compile as it does not handle all valid Finished
