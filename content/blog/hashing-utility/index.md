@@ -203,7 +203,6 @@ More of a hidden option set in the `.cargo/config` file:
 
 ```toml
 [build]
-
 rustflags = ["-C", "target-cpu=native"]
 ```
 

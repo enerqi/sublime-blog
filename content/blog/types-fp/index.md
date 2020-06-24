@@ -1,6 +1,6 @@
 ---
 title: Typeful Development
-date: "2020-06-16T19:45:03.284Z"
+date: "2020-06-23T19:45:03.284Z"
 description: Domain Modelling
 ---
 
@@ -29,7 +29,7 @@ false. The underlying bytes within the computer are untyped, just
 bits that are manipulated as numbers by the CPU. Our programming languages can build types over those numbers however.
 A boolean's representation as a number can be 0 and 1 and even though it only requires 1 bit of information, it will
 use at least 1 byte (as that is the basic addressable unit of computers) unless multiple booleans are specially bit
-packed together in e.g. a bit-vector.
+packed together (e.g. in a bit-vector).
 
 Reducing the number of values in a type's set makes it easier to think about. Practically though the number of values
 in a set is often huge, e.g. 4 billion for a single 32bit number and so when you have just two 32bit number parameters
@@ -103,12 +103,14 @@ unions. A closed type disjoint union is very easy for the reader and compiler to
 
 ### Open vs Closed
 
-An open type, such as the typical unsealed class hierarchy has some utility in that it can be extend by third party code. This is definitely useful at times, but I consider it the wrong default. Domain modelling usually aims to make
+An open type, such as the typical unsealed class hierarchy has some utility in that it can be extended by third party
+code. This is definitely useful at times, but I consider it the wrong default. Domain modelling usually aims to make
 clear and visible all state to be processed. When the data is modelled as a closed type we can reason about it
-statically. Awkwardly, I don't even think most OO type class hierarchies want to model the data as open, it's just that
-functions (methods) are attached to objects and polymorphic functions are used to vary/extend behaviour at runtime or
-to have third party code vary/extend behaviour with the same data. That can only be done if the class hierarchy is
-still open (the class is not "final" or "sealed").
+statically. I don't even think most OO type class hierarchies want to model the data as open, it's just that functions
+(methods) are attached to objects and polymorphic functions are used to vary/extend behaviour at runtime, possibly by
+third party code. When single dispatch polymorphism is your only type of runtime polymorphism it's easy to mix up the
+data modelling and behaviour - virtual/polymorphic methods can only be used if the class hierarchy is still open (the
+class is not "final" or "sealed").
 
 ## Unrepresentable Illegal States
 
@@ -127,11 +129,10 @@ class EventStatus:
 ```
 
 Here, we use a Python dataclass but it could easily be any class object in one of many OO languages. This model allows
-us to represent illegal domain state, or most charitably, irrelevant state information given other aspects of the
-state. We may incorrectly base our logic on reading `has_started=True` as implying that we are in the "started at
+us to represent illegal domain state, or most charitably, record older irrelevant state information. We may incorrectly base our logic on reading `has_started=True` as implying that we are in the "started at
 timestamp" state, especially as we are being careful to model `started_timestamp` as an Optional and so we will check
 that it is not None. In this situation we have to know to check that `has_ended=False`, or maybe we don't even have a
-`has_ended` state and instead have to check whether `finished_duration_seconds` is not None.
+`has_ended` value and instead have to check whether `finished_duration_seconds` is not None.
 
 In the real world I've seen uglier more complicated classes. Even if you are hiding the details as private state behind
 an object interface it can be bug prone for the maintainer or reader. The developer and certainly anyone less technical
@@ -152,11 +153,11 @@ class EventStatus:
 class NotStarted(EventStatus):
     pass
 
-@dataclass
+@dataclass(frozen=True)
 class Started(EventStatus):
     started_timestamp: time
 
-@dataclass
+@dataclass(frozen=True)
 class Finished(EventStatus):
     duration_seconds: float
 ```
@@ -196,7 +197,7 @@ At this point a lot of developers have heard about null/null pointers/none/nothi
 An Optional type is clearly useful, it models in the domain the idea that something may not exist. If your programming
 language has some way to track nulls with Options/Maybes/Nullable references, or whatever their called, then a type
 without that Optional annotation should never be null/none. The challenge in recent years has been that many languages
-implicitly allow everything to be optional.
+implicitly allow everything to be optional even when the type does not state it.
 
 Results are much like optionals except when there is nothing, a failure type is conveyed instead of nothing. This was
 covered more in the post on [error handling](/error-handling).
@@ -215,7 +216,7 @@ UserCount = NewType("UserCount", int)
 
 Same representation, but very different uses. APIs full of primitives - strings, numbers, booleans etc. don't convey
 much at all useful through the types. Maybe the data is just data and you don't want to put any in depth domain model
-onto it. That can be fine, but too often the proper domain modelling never takes place.
+onto it. That can be fine, but too often the proper domain modelling never takes place when it should.
 
 Really a new type is just an idiom for wrapping one single type inside another with another name, which leads to...
 
@@ -273,9 +274,10 @@ That's a bit painful though as the `EmailAddress` constructor cannot return any 
 exception - something I'd prefer to avoid as discussed in [error handling](/error-handling). So we put a factory static
 method in place to "hide" it (not that python has a lot of access control mechanisms). Optionally we put a property
 accessor in place, whereas with the plain new type there was no accessing required. Dataclasses don't make it easier as
-they are syntactic sugar for generating classes. So, I'd stick with a simple new type and `email_address` creating
-function. As the language primitives are all immutable we also don't benefit as much from using a dataclass and being
-able to add the `frozen=True` (immutable) parameter.
+they are syntactic sugar for generating classes. So, I'd stick with a simple new type and `make_email_address` creating
+function. As the python language primitives are all immutable we also don't need to worry about mutability with a new
+type in python. We'd consider using the `frozen=True` (immutable) dataclass parameter if trying to use immutable data
+and pure functions.
 
 ## Reference vs Value Types
 
@@ -307,18 +309,18 @@ p2 = Person(42, "bob")
 p1 == p2  # False!
 ```
 
-Here we see reference (do they have the same address in memory) equality is linked with individual instance
-identity. Ordering (less than, greater than) is just as awkward, whereas with `dataclasses` we can add `order=True` and
+Here we see reference (do they have the same address in memory) equality is linked with individual instance identity.
+Ordering (less than, greater than) is just as awkward, whereas with `dataclasses` we can often add `order=True` and
 we're done. None of that taking care to properly define a less than comparator and worrying that we should override
 hashcode generation if we override equality etc. FYI `namedtuples` in python are naturally ordered.
 
 Treating types with value / structural semantics is more appropriate when using immutable types, such as functional
 first development with pure functions. Pure functions and immutable data have little interest in object reference
 identity, the place in memory, as we will be making new immutable data from the old. This [what is FP](https://www.lihaoyi.com/post/WhatsFunctionalProgrammingAllAbout.html) article chooses to emphasise dataflow in FP
-programming, which I've not really emphasised when talking about pure functions and FP first development, but I do
-agree with it. Using immutable data and pure functions means the program data is generated and flowed
-through the functions. It does not pass references to objects through the flow of the program and mutate those objects
-as it goes. State aliasing and tracking state is something computers and not humans are good at.
+programming, which I've not really done when talking about [pure functions and FP first development](/fp-first), but I
+do agree with it. Using immutable data and pure functions means that each function creates new data and shows it to
+the next function. References to objects are not passed through the flow of the program, references that are used to
+mutate the objects. State aliasing and tracking state is something computers and not humans are good at.
 
 Again, even if it's possible people may not bother with something like value / structrual semantics if it's much more
 effort to create than the default reference semantics. Python at least is in good shape here if we stick with
@@ -350,6 +352,19 @@ captures the program requirements as dataflow through various functions. As data
 it's good and necessary for this sort of TDD to define the types first, which really just means work out your domain
 model first. This is contra to writing functions/methods "defining" behaviour through the names of functions, which is
 not something that compilers and type checkers can formally analyse in any useful way.
+
+```python
+
+EmailAddress = NewType("EmailAddress", str)
+GDPRMarketableEmailAddress = NewType(
+    "GDPRMarketableEmailAddress", EmailAddress)
+
+def f(e: EmailAddress) -> Optional[GDPRMarketableEmailAddress]:
+    ...
+```
+
+This function is terribly named, but if you understand the domain types it's clear what it does (assuming it's a
+pure function that has no side effects).
 
 Going back to open and closed types, the closed types are fully specified and visible to the type checker. Most
 languages lack one of disjoint unions (a closed type) or pattern matching. Some pattern matching features maybe present
@@ -387,5 +402,10 @@ match es with
 | Finished 0.0f | 1.0f -> ... // handle finished with duration of 0 or 1
 ```
 
-An example of a stronger pattern matcher in F#. The pattern matcher allows us to match a finished case where the finished duration exactly zero or one seconds. This example won't compile as it does not handle all valid Finished
+An example of a stronger pattern matcher in F#. The pattern matcher allows us to match a finished case where the finished duration is exactly zero or one seconds. This example won't compile as it does not handle all valid Finished
 cases.
+
+
+## What to remember
+
+Data types are core to domain modelling. Make illegal states unrepresentable.
