@@ -197,6 +197,17 @@ codegen-units = 1
 
 So for a 915MB input file the python program was running just the sha2-256 hash in ~3 seconds. The rust program was
 doing the same in ~6 seconds. Yeah, twice as slow and I double checked that the time was being spent in the library
-hashing function. Just goes to show that Python maybe a very slow interpreted language by most benchmarks, but a lot of
-the time Python is used as a scripting language for native code, i.e. C/C++/Rust libraries. In this case the hashlib
-implementation in the Python standard library is clearly better optimized than the third party rust libraries.
+hashing function. Actually a significant improvement was had by compiling the Rust program to target the CPU of the
+machine it's running on, instead of some generic x64 processor, so we can use processor specific instructions like AVX.
+More of a hidden option set in the `.cargo/config` file:
+
+```toml
+[build]
+
+rustflags = ["-C", "target-cpu=native"]
+```
+
+That puts it within 50% of the python program, but still slower. Just goes to show that Python maybe a very slow
+interpreted language by most benchmarks, but a lot of the time Python is used as a scripting language for native code,
+i.e. C/C++/Rust libraries. In this case the hashlib implementation in the Python standard library is clearly better
+optimized than the third party rust libraries.
