@@ -76,9 +76,9 @@ writing functional first web applications. It includes frameworks like [Saturn](
 but high performance and reliable asp.net core web server. That said, I'm sure there's stuff to be done to reduce the
 need to know about the underlying OO C# model.
 
-Sometimes that independence is problem as well. F# provided the first implementations of async and generics on the .NET
-platform a long time ago. C# eventually had these features but done independently in a slightly different way such that
-using C# APIs from F# can be an annoyance and cognitive burden to understand the slight differences. Tasks in C#
+Sometimes that independence is a problem as well. F# provided the first implementations of async and generics on the
+.NET platform a long time ago. C# eventually had these features but done independently in a slightly different way such
+that using C# APIs from F# can be an annoyance and cognitive burden to understand the slight differences. Tasks in C#
 vs Async in F# is an example. Only in the upcoming .NET 5 release will have F# have a natural task compatible
 computation expression.
 
@@ -94,7 +94,7 @@ model whilst remaining mostly imperative which is more familiar to many mainstre
 So far, my most useful production work using F# has been with [Fable](https://fable.io/), the F# to Javascript
 compiler. Typescript is the current popular technology for adding type contraints to frontend projects, but yeah it
 doesn't have the full package of algebraic data types and pattern matching. F# Fable programs typically embrace
-[Elmish](https://zaid-ajaj.github.io/the-elmish-book/#/) -functional first development with MVU
+[Elmish](https://zaid-ajaj.github.io/the-elmish-book/#/) - functional first development with MVU
 (model view update) / unidirectional data flow architectures. There's much to like about it, yet Typescript can be a
 very gradual change for JS developers - a smooth onboarding process. Using F# requires learning something about the
 F# and .NET ecosystem of course. Fable compiling to Javascript means the APIs and packages are NPM focussed but
@@ -121,7 +121,7 @@ unified platform marketing everying as just ".NET", not core or framework etc.
 
 From a promotion perspective, F# doesn't have any obvious niche. It's just good for general purpose programming.
 It's not known for AI, data science or machine learning like Python, although there's effort starting there. Game
-development with things like Unity are C# focussed. Web application with Fable is great but desktop development is
+development with things like Unity are C# focussed. Web applications with Fable are great but desktop development is
 often done with WPF. Even though I think WPF is horrible the IDE tools for UI creation are C# centric again. Services
 with databases often use an [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping) and again I find ORMs
 pretty horrible but the tooling and IDE support for Entity Framework is something that C# has and F# does not.
