@@ -29,7 +29,7 @@ responsibility and DRY (don't repeat yourself) code. Lack of layering will lead 
 first](/fp-first) code that maximises pure functions and minimises unnecessary state naturally tends towards this
 layered architecture, because of the idea of building a pure functional core around which an imperative impure shell
 exists. This architecture is harder to arrive at without effort in OO development but is captured by the [Ports and
-Adapter / Hexagonal architecture pattern](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)).
+Adapters / Hexagonal architecture pattern](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)).
 Interestingly, in F# programming [circular dependencies are
 disallowed](https://fsharpforfunandprofit.com/posts/cyclic-dependencies/) between source code modules - you are forced in the direction of a better architecture. In Python programming you have to separate out and layer
 somethings better (more so than in e.g. Java or C#) because circular imports between modules cause run time errors.
@@ -65,8 +65,8 @@ is dying in popularity.
 Python in some ways makes mocking too easy. The `unitest.mock` library can easily patch functions to create actual
 mocks or stubs or fakes (not actually "mocks"). It's not as highly coupled as behaviour verification testing but can
 still be far too coupled. A solution to that is [dependency
-injection](https://en.wikipedia.org/wiki/Dependency_injection). It looks different in an FP first architecture due to
-the avoidance of side effects - the maximisation of pure functions. As it is in many ways the last challenge in
+injection](https://en.wikipedia.org/wiki/Dependency_injection). It often looks different in an FP first architecture
+due to the avoidance of side effects - the maximisation of pure functions. As it is in many ways the last challenge in
 settling on a general high level FP first architecture, it will have to be its own series of posts.
 
 ## Concrete tests
@@ -127,9 +127,9 @@ This should be an obvious kind of property to test for any sort of encode/decode
 types controlled by the programmer. Property testing was first widely used in Haskell (and Erlang) programs. In those
 languages and [many other languages](https://en.wikipedia.org/wiki/QuickCheck) that have a property testing library
 the strategy is called a generator, but I guess that conflicts with Python's actual generators. In Haskell the type
-system is advanced enough that the compiler could often automatically generate types that match the required function
-inputs. In dynamically typed languages like Python the programmer generally must specify appropriate generators,
-though hypothesis can infer strategies from type annotations.
+system is advanced enough that the compiler could often automatically generate values that match the required function
+input types. In dynamically typed languages like Python the programmer generally must specify appropriate generators,
+though hypothesis can infer some strategies from input type annotations.
 
 ```python
 
@@ -192,7 +192,7 @@ st.sampled_from("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 st.text(alphabet=string.ascii_letters + string.digits)
 ```
 
-maybe with all of `string.printable` instead.
+or maybe all of `string.printable` instead.
 
 The parameters passed to strategy functions give limited constraint control. Every strategy object has a filter method
 that returns another strategy so you can customise the values further
@@ -351,7 +351,7 @@ integers impossible state.
 Final new ideas, as this is a long post. Whilst property testing was created in a pure functional programming
 environment, it can be used for stateful testing. We can use a strategy that generates random actions/instructions that
 tell us what to do with an imperative stateful object. For example, add an item to a dictionary, try to remove one etc.
-Hypothesis has [stateful testing support](https://hypothesis.readthedocs.io/en/latest/stateful.html) though I've not
+Hypothesis has [stateful testing support](https://hypothesis.readthedocs.io/en/latest/stateful.html), though I've not
 tried it. I do have examples of stateful property testing in F# for testing a [mutable disjoint
 set](https://github.com/enerqi/AlgorithmPad/blob/master/tests/Graphs.Tests/DisjointSetTests.fs) and [mutable heap
 (priority queue)](https://github.com/enerqi/AlgorithmPad/blob/master/tests/Graphs.Tests/HeapTests.fs).
