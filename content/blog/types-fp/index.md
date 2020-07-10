@@ -324,15 +324,18 @@ to mutate the objects. State aliasing and tracking state is something computers 
 
 Again, even if it's possible people may not bother with something like value / structrual semantics if it's much more
 effort to create than the default reference semantics. Python at least is in good shape here if we stick with
-dataclasses or namedtuples.
+dataclasses, namedtuples or the third party library [attrs](https://www.attrs.org/en/stable/).
 
 ## Lists, Sets and Associative Mappings
 
 Lists (whatever that means in your language, I'm thinking of something implemented as a dynamic arrary) can model zero+
-instances of a type and Sets do the same but enforce uniqueness. I don't think there's much more to say. Sets are
-probably underused. Along with Lists, associative maps (dictionaries, implemented as hash tables) are the work horses
-of application code. Associative maps associate a single key with a value, but it's not hard to implement or just use
-(e.g. `defaultdict(list)` in python) an associative map that links a single key to multiple values (multi map).
+instances of a type and sets do the same but enforce uniqueness. Sets deny any ordering but lists are implicitly
+ordered, which even if not part of the API, clients may depend on in some subtle way. Sets are probably underused, but
+if I'm thinkinig of performance, then a dynamic array type of list is the fastest general purpose datastructure, though
+sets implemented as hash tables are reasonable. Along with lists, associative maps (dictionaries, implemented as
+hash tables) are the work horses of application code. Associative maps associate a single key with a value, but it's
+not hard to implement or just use (e.g. `defaultdict(list)` in python) an associative map that links a single key to
+multiple values (multi map).
 
 Python has literal syntax and comprehensions for sets, lists and dicts - easy to use.
 
