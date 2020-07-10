@@ -143,7 +143,7 @@ For libraries, I argue that it's more important to use return values - libraries
 in the type signatures so different applications can handle the errors as is suitable for them, which could then
 include throwing an exception. The big question though is whether in a language throwing exceptions it's worth it to
 wrap that exception in a domain error. A lot of the time that exception will have nothing to do with your domain and
-there is nothing that can be done with it except pass it on in wrapping type.
+there is nothing that can be done with it except pass it on in a wrapping type.
 
 ## Overall
 
