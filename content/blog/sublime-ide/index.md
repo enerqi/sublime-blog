@@ -167,8 +167,7 @@ In the sublime "Preferences: LSP Settings", in addition to the `"lsp_format_on_s
     }
 ```
 
-The `rust-analyzer.exe` binary (or just `rust-analyzer` on Linux) needs manually updating. The VSCode Rust-Analyzer extension
-is better in this regard.
+The `rust-analyzer.exe` binary (or just `rust-analyzer` on Linux) needs manually updating. UPDATE: the [LSP rust analyzer](https://github.com/sublimelsp/LSP-rust-analyzer) sublime package now handles this.
 
 ### Rust Project Specific Setup
 
@@ -251,6 +250,7 @@ Over the years I've seen a number of websites suggesting which Sublime packages 
     "LSP",
     "LSP-json",
     "LSP-pyright",
+    "LSP-rust-analyzer",
     "Markdown Extended",
     "MarkdownEditing",
     "MarkdownPreview",
