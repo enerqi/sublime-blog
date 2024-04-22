@@ -153,7 +153,7 @@ Actually doing something useful with uncaught exceptions should be fairly trivia
 framework should be catching and logging the exception, and returning an appropriate 500 server error.
 In an actor based system with supervisor hierarchies like [Erlang OTP](https://www.erlang.org/) or [Akka](https://akka.io/) exceptional events would cause the crashed processes to be restarted anew.
 
-When letting exceptons happen deliberately it maybe useful to document what raised exceptions are
+When letting exceptions happen deliberately it maybe useful to document what raised exceptions are
 being allowed as opposed to just not known about. A final case where using a exception for brevity could be appropriate
 is when the exception is defined, thrown and caught within the scope of one module's private functions and documented
 to do so - local control flow, the more local the better. It will however, not be documented by the type system and be
