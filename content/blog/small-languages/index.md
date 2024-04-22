@@ -160,7 +160,7 @@ using the conventional `New` function associated with a type (the type is privat
 often have a conventional function e.g. `foo_init`, but there is no way to stop you creating a zeroed out value unless
 the type is completely opaque, e.g. hidden behind a `distinct rawptr`.
 
-Odin has `nil` as a value and the it's the default init value for some types. So does Golang. The [or_else
+Odin has `nil` as a value and it's the default init value for some types. So does Golang. The [or_else
 operator](https://odin-lang.org/docs/overview/#or_else-expression) and the `Maybe(T)` type make it less problematic.
 Whether `MaybeT` is used much, I can't say, as the `or_return` operator can also ergonomically handle `nil` values.
 
@@ -181,7 +181,7 @@ with the right compiler flags (bit like `cargo clippy` for Rust).
 
 ### Where is Golang better?
 
-Odin doesn't have a highly developed web service ecosystem. There's nothing like async runtime built into the
+Odin doesn't have a highly developed web service ecosystem. There's nothing like an async runtime built into the
 language and a I suspect there never will be. That's in contrast to Zig, another better C language, which is developing
 async support.
 
