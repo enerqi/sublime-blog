@@ -54,6 +54,14 @@ impl PartialEq<str> for UriPath {
 }
 ```
 
+Other times in Rust we have features that lets us write less code, but it makes the language more magic, e.g. derive
+macros and [procedural macros](https://doc.rust-lang.org/reference/procedural-macros.html). Many projects use the
+[serde](https://serde.rs/) crate for serialization and its many macros which significantly increase compile time.
+Benefits often come with tradeoffs / costs. That's clear with something like the [Pin trait](https://doc.rust-lang.org/std/pin/index.html)
+in Rust - it's not part of your domain problem, it's complexity brought in by the language. Who knows, maybe people
+will develop coding standard dialects that say which features you can use - a sign of complexity that C++ has had
+plenty of over the years.
+
 ## Odin (and Golang)
 
 [Odin](http://odin-lang.org/) is the small language that has taken most of my interest. Apart from being smaller than
