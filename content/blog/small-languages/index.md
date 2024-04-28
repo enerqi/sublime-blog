@@ -115,9 +115,9 @@ func addOne(x *int) {
 Yes, you can pass by value instead as a way to stop the function from mutating the pointed to thing, but if it's a
 reasonably large type then it's inefficient to make a full copy.
 
-What about Odin? If the intention is to mutate it then we pass a pointer `^Foo` other we just pass `Foo`. The compiler
-optimizes this to passing a pointer for performance if needed. You can take a copy of `Foo` by shadowing its variable,
-but by value parameters are immutable by default.
+What about Odin? If the intention is to mutate it then we pass a pointer `^Foo` otherwise we just pass `Foo`. The
+compiler optimizes this to passing a pointer for performance if needed. You can take a copy of `Foo` by shadowing its
+variable, but by value parameters are immutable by default.
 
 ### Error Handling
 
